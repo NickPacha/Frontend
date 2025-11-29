@@ -1,0 +1,320 @@
+:host {
+  display: block;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* === 1. FONDO NEGRO PURO === */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+/* === 2. TARJETA CON ANIMACIÓN DE ENTRADA === */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #0d0d0d;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 48px 36px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+
+  /* Sombra interna para profundidad */
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 10px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === 3. LOGO CON ANIMACIÓN NEÓN === */
+.auth-logo {
+  width: 1020px;
+  height: 1020px;
+  border-radius: 16px;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 auto 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 0 8px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+}
+
+.auth-logo::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #fff, #ccc, #fff);
+  z-index: -1;
+  border-radius: 18px;
+  opacity: 0;
+  animation: pulseGlow 3s infinite;
+}
+
+.auth-logo:hover {
+  transform: scale(1.05);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 0.4;
+    filter: blur(8px);
+  }
+}
+
+.auth-logo i {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+/* === 4. TIPOGRAFÍA === */
+.auth-card h4 {
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.auth-card .text-muted,
+.auth-card label,
+.auth-card .small {
+  color: #cccccc !important;
+  font-weight: 400;
+}
+
+/* === 5. INPUTS CON NEÓN BLANCO === */
+.input-group-modern {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;
+  background: #000000;
+}
+
+.input-group-modern:focus-within {
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.2);
+  position: relative; /* ⬅️ Añade esto */
+  z-index: 2; /* ⬅️ Añade esto */
+}
+
+.input-group-modern .input-group-text {
+  background-color: transparent !important;
+  border: none !important;
+  color: #cccccc;
+  padding: 14px 16px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-input.form-control {
+  background-color: #000000 !important;
+  border: none !important;
+  color: #f9f9f9 !important;
+  padding: 12px !important; /* ⬅️ Igual que el input-group-text */
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border-radius: 0 !important;
+  margin-left: -1px;
+  z-index: 1;
+}
+
+.auth-input.form-control::placeholder {
+  color: #666666 !important;
+}
+
+.btn-toggle-password {
+  border: none !important;
+  background: transparent !important;
+  color: #cccccc;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-toggle-password:hover {
+  color: #ffffff;
+}
+
+/* Textarea */
+.auth-card textarea.auth-input.form-control {
+  min-height: 110px;
+  background: #161616 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+  padding: 14px !important;
+}
+.auth-card textarea.auth-input.form-control:focus {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25) !important;
+}
+
+/* === 6. BOTÓN PRINCIPAL: NEÓN BLANCO === */
+.btn-primary {
+  border-radius: 50px !important;
+  padding: 15px 0 !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  border: none !important;
+  background: #000 !important;
+  color: #fff !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  transform: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* === 7. CHECKBOX MODERNO === */
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 0;
+  border: 1px solid #555;
+  background-color: #1a1a1a;
+  accent-color: #fff; /* Estilo nativo para checked */
+}
+
+/* === 8. MENSAJES DE ERROR === */
+.alert-danger {
+  background-color: rgba(40, 10, 10, 0.6) !important;
+  border: 1px solid rgba(255, 100, 100, 0.3) !important;
+  color: #ff9999 !important;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+.auth-logo {
+  margin-bottom: 24px;
+}
+.app-logo {
+  max-width: 180px; /* Ajusta este valor según lo que necesites */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); /* Opcional: para darle profundidad */
+}
+/* En login.component.css */
+.bi-headset {
+  font-size: 1rem;
+  color: #cccccc; /* Gris suave para que no destaque demasiado */
+}
+
+.hover-link:hover .bi-headset {
+  color: #ffffff; /* Blanco al hacer hover */
+}
+.app-logo {
+  height: 48px;        /* o max-height */
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); /* opcional */
+}
+.invalid-feedback {
+  display: block !important;
+  font-size: 0.85rem;
+  color: #ffaaaa !important;
+  margin-top: 6px;
+  padding: 10px 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === 9. ENLACES === */
+.hover-link {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255,255,255,0.4);
+  transition: all 0.2s ease;
+}
+
+.hover-link:hover {
+  text-decoration-color: #fff !important;
+  color: #fff !important;
+}
+
+/* === 10. RESPONSIVE === */
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 36px 24px;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+
+  .auth-logo {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+
+  .auth-card h4 {
+    font-size: 1.6rem;
+  }
+}

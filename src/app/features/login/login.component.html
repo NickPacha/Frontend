@@ -1,0 +1,149 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    <ng-container *ngIf="!isSupportView">
+      
+      <div class="text-center mb-5">
+        <img src="logo.png" alt="Logo" class="app-logo">
+        <h4 class="mb-3">Bienvenido de nuevo</h4>
+        <p class="text-muted mb-0">Inicia sesión para continuar</p>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger py-2 mb-3">
+        {{ errorMessage }}
+      </div>
+
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+        <div class="mb-3">
+          <label class="form-label">Usuario</label>
+          <div class="input-group input-group-modern">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input
+              #usernameInput="ngModel"
+              name="username"
+              class="form-control auth-input"
+              [(ngModel)]="username"
+              placeholder="Ingresa tu usuario"
+              required
+              [class.is-invalid]="usernameInput.invalid && usernameInput.touched">
+          </div>
+          <div *ngIf="usernameInput.invalid && usernameInput.touched" class="invalid-feedback">
+            Usuario requerido
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Contraseña</label>
+          <div class="input-group input-group-modern">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input
+              #passwordInput="ngModel"
+              name="password"
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control auth-input"
+              [(ngModel)]="password"
+              placeholder="Ingresa tu contraseña"
+              required
+              minlength="3"
+              [class.is-invalid]="passwordInput.invalid && passwordInput.touched">
+            <button
+              type="button"
+              class="btn btn-toggle-password"
+              (click)="showPassword = !showPassword"
+              tabindex="-1">
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="passwordInput.invalid && passwordInput.touched" class="invalid-feedback">
+            <ng-container *ngIf="passwordInput.errors?.['required']">
+              Contraseña requerida.
+            </ng-container>
+            <ng-container *ngIf="passwordInput.errors?.['minlength']">
+              La contraseña debe tener al menos 3 caracteres.
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="rememberMe"
+              name="rememberMe"
+              [(ngModel)]="rememberMe">
+            <label class="form-check-label small" for="rememberMe">
+              Recordarme
+            </label>
+          </div>
+          <a href="javascript:void(0)"
+             class="small text-decoration-none text-primary hover-link d-flex align-items-center gap-1"
+             (click)="showSupportForm()">
+            <i class="bi bi-headset"></i>
+            Contacta a soporte
+          </a>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100 btn-pill mb-4"
+          [disabled]="loading || loginForm.invalid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ loading ? 'Ingresando...' : 'Ingresar' }}
+        </button>
+      </form>
+    </ng-container>
+
+    <ng-container *ngIf="isSupportView">
+      
+      <div class="text-center mb-4">
+        <i class="bi bi-headset app-headset-icon"></i>
+        <h4 class="mb-2">Contacto de Soporte</h4>
+        <p class="text-muted mb-0">Detalla tu problema de acceso. Un técnico te contactará.</p>
+      </div>
+
+      <form #supportForm="ngForm" (ngSubmit)="sendSupportEmail()">
+        
+        <div class="mb-3">
+          <label class="form-label">Tu Nombre</label>
+          <div class="input-group input-group-modern">
+            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+            <input
+              #nameInput="ngModel"
+              name="supportName"
+              type="text"
+              class="form-control auth-input"
+              [(ngModel)]="supportName"
+              placeholder="Ingresa tu nombre completo"
+              required>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Descripción del Problema</label>
+          <textarea
+            #messageInput="ngModel"
+            name="supportMessage"
+            class="form-control auth-input"
+            rows="4"
+            [(ngModel)]="supportMessage"
+            placeholder="Ej: Olvidé mi usuario. No puedo iniciar sesión desde el lunes."
+            required></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100 btn-pill mb-3"
+          [disabled]="supportForm.invalid">
+          <i class="bi bi-send me-2"></i> Abrir Cliente de Correo
+        </button>
+      </form>
+
+      <div class="text-center">
+        <a href="javascript:void(0)"
+           class="small text-primary text-decoration-none hover-link"
+           (click)="showLoginForm()">← Volver al Inicio de Sesión</a>
+      </div>
+    </ng-container>
+  </div>
+</div>

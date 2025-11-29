@@ -1,0 +1,139 @@
+<div class="sidebar d-flex flex-column p-3 bg-white text-dark">
+
+  <!-- Logo y título -->
+  <div class="d-flex align-items-center mb-4">
+    <img src="/image.png" alt="Logo" class="sidebar-logo me-2">
+    <h5 class="mb-0">TrackFlex</h5>
+  </div>
+<a class="menu-item d-flex align-items-center justify-content-between" 
+   routerLink="/dashboard" 
+   routerLinkActive="active"
+   style="text-decoration: none; color: inherit;">
+  <div class="d-flex align-items-center">
+    <i class="bi bi-house-door me-2"></i>
+    <span>Inicio</span>
+  </div>
+</a>
+  <!-- Menú principal con acordeón -->
+  <div class="menu-section">
+    
+<div class="menu-item" (click)="toggleMenu('mantenimiento-tablas')">
+  <i class="bi bi-database me-2"></i>
+  <span>Mantenimiento</span>
+  <i class="bi" [ngClass]="expandedMenu === 'mantenimiento-tablas' ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+</div>
+
+<div class="submenu" [class.expanded]="expandedMenu === 'mantenimiento-tablas'">
+  <a class="submenu-link" routerLink="/mantenimiento/vehiculo" routerLinkActive="active">
+    <i class="bi bi-truck me-2"></i> Vehículo
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/servicio" routerLinkActive="active">
+    <i class="bi bi-list-task me-2"></i> Servicio
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/entrega" routerLinkActive="active">
+    <i class="bi bi-box me-2"></i> Entrega
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/cliente" routerLinkActive="active">
+    <i class="bi bi-person me-2"></i> Cliente
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/tienda" routerLinkActive="active">
+    <i class="bi bi-shop me-2"></i> Tienda
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/preliquidacion" routerLinkActive="active">
+    <i class="bi bi-receipt me-2"></i> Preliquidación
+  </a>
+  <a class="submenu-link" routerLink="/mantenimiento/incidencias" routerLinkActive="active">
+    <i class="bi bi-exclamation-triangle me-2"></i> Incidencias
+  </a>
+</div>
+    <!-- Gestionar Servicios -->
+    <div class="menu-item" (click)="toggleMenu('servicios')">
+      <i class="bi bi-folder me-2"></i>
+      <span>Gestionar Servicios</span>
+      <i class="bi" [ngClass]="expandedMenu === 'servicios' ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+    </div>
+
+    <div class="submenu" [class.expanded]="expandedMenu === 'servicios'">
+      <a class="submenu-link" routerLink="/gestionar-servicios/registrar" routerLinkActive="active">
+        <i class="bi bi-pencil-square me-2"></i> Registrar Servicios
+      </a>
+      <a class="submenu-link" routerLink="/gestionar-servicios/asignar-conductores" routerLinkActive="active">
+        <i class="bi bi-person-plus me-2"></i> Asignar Conductores
+      </a>
+      <a class="submenu-link" routerLink="/gestionar-servicios/validar" routerLinkActive="active">
+        <i class="bi bi-check-square me-2"></i> Validar Servicio
+      </a>
+      <a class="submenu-link" routerLink="/gestionar-servicios/hoja-viaje" routerLinkActive="active">
+        <i class="bi bi-truck me-2"></i> Crear Hoja de Viaje
+      </a>
+      <a class="submenu-link" routerLink="/gestionar-servicios/preliquidacion" routerLinkActive="active">
+        <i class="bi bi-cash me-2"></i> Crear Preliquidación
+      </a>
+    </div>
+
+    <!-- Gestionar Mantenimiento -->
+    <div class="menu-item" (click)="toggleMenu('mantenimiento')">
+      <i class="bi bi-tools me-2"></i>
+      <span>Gestionar Mantenimiento</span>
+      <i class="bi" [ngClass]="expandedMenu === 'mantenimiento' ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+    </div>
+
+    <div class="submenu" [class.expanded]="expandedMenu === 'mantenimiento'">
+      <a class="submenu-link" routerLink="/mantenimiento/gestionar" routerLinkActive="active">
+        <i class="bi bi-wrench me-2"></i> Gestionar Mantenimiento de Vehículos
+      </a>
+      <a class="submenu-link" routerLink="/mantenimiento/reactivar" routerLinkActive="active">
+        <i class="bi bi-arrow-repeat me-2"></i> Reactivar Vehículos
+      </a>
+      <a class="submenu-link" routerLink="/mantenimiento/programacion" routerLinkActive="active">
+        <i class="bi bi-calendar-check me-2"></i> Generar Programación de Mantenimiento
+      </a>
+    </div>
+
+    <!-- Gestionar Entregas -->
+    <div class="menu-item" (click)="toggleMenu('entregas')">
+      <i class="bi bi-truck me-2"></i>
+      <span>Gestionar Entregas</span>
+      <i class="bi" [ngClass]="expandedMenu === 'entregas' ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+    </div>
+
+    <div class="submenu" [class.expanded]="expandedMenu === 'entregas'">
+      <a class="submenu-link" routerLink="/entregas/activas" routerLinkActive="active">
+        <i class="bi bi-truck me-2"></i> Entregas Activas
+      </a>
+      <a class="submenu-link" routerLink="/entregas/cancelacion" routerLinkActive="active">
+        <i class="bi bi-x-circle me-2"></i> Registrar Cancelación de Entrega
+      </a>
+      <a class="submenu-link" routerLink="/entregas/incidencias" routerLinkActive="active">
+        <i class="bi bi-exclamation-circle me-2"></i> Incidencias
+      </a>
+    </div>
+
+  </div>
+
+  <!-- SECCIÓN FIJA EN LA PARTE INFERIOR -->
+  <div class="fixed-footer mt-auto pt-3 border-top">
+    <div class="menu-item" (click)="navigateTo('/ajustes')">
+      <i class="bi bi-gear me-2"></i>
+      <span>Ajustes</span>
+    </div>
+
+    <div class="menu-item" (click)="openSupportEmail()">
+      <i class="bi bi-question-circle me-2"></i>
+      <span>Ayuda</span>
+    </div>
+
+    <div class="user-info d-flex align-items-center mb-3 mt-4">
+      <img src="/perfil.jpg" alt="User Avatar" class="user-avatar me-2">
+      <div>
+        <div class="fw-bold">{{ username || 'Usuario' }}</div>
+        <small class="text-muted">{{ role || 'Invitado' }}</small>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-secondary w-100" (click)="logout()">
+      <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+    </button>
+  </div>
+
+</div>

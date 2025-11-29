@@ -1,0 +1,92 @@
+<div class="vehiculo-container">
+  <h2>Mantenimiento → Vehículos</h2>
+
+  <!-- Form (crear/editar) -->
+  <div class="card form-card">
+    <div class="card-header">
+      <h3 *ngIf="!editing">Nuevo Vehículo</h3>
+      <h3 *ngIf="editing">{{ selectedId ? 'Editar Vehículo' : 'Crear Vehículo' }}</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="row">
+          <div class="col">
+            <label>Placa *</label>
+            <input formControlName="placa" maxlength="7" class="form-control" />
+            <div *ngIf="form.controls['placa'].touched && form.controls['placa'].invalid" class="text-danger small">
+              Requerido (máx 7 caracteres).
+            </div>
+          </div>
+          <div class="col">
+            <label>Marca</label>
+            <input formControlName="marca" class="form-control" />
+          </div>
+          <div class="col">
+            <label>Modelo</label>
+            <input formControlName="modelo" class="form-control" />
+          </div>
+          <div class="col">
+            <label>Nivel *</label>
+            <select formControlName="nivelId" class="form-control">
+              <option [ngValue]="null">-- Seleccionar --</option>
+              <option *ngFor="let n of niveles" [ngValue]="n.id">{{ n.codigo }} ({{n.m3Min}} - {{n.m3Max}})</option>
+            </select>
+            <div *ngIf="form.controls['nivelId'].touched && form.controls['nivelId'].invalid" class="text-danger small">
+              Seleccione un nivel.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="loading">{{ selectedId ? 'Actualizar' : 'Crear' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="loadVehiculos()">Recargar lista</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Buscador -->
+  <div class="mb-2">
+    <input placeholder="Buscar placa, marca, modelo, nivel..." [(ngModel)]="searchText" class="form-control" />
+  </div>
+
+  <!-- Tabla -->
+  <div class="card list-card">
+    <div class="card-header">
+      <h3>Lista de Vehículos</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Nivel</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of filteredVehiculos">
+            <td>{{ v.placa }}</td>
+            <td>{{ v.marca }}</td>
+            <td>{{ v.modelo }}</td>
+            <td>{{ v.nivel ?? '-' }}</td>
+            <td>{{ v.estado ?? 'A' }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary" (click)="startEdit(v)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="remove(v)">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredVehiculos.length === 0">
+            <td colspan="6" class="text-center">No hay registros</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

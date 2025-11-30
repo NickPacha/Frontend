@@ -11,14 +11,15 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', component: DashboardComponent },
+      {
+        path: 'mantenimiento',
+        loadChildren: () =>
+          import('./core/mantenimiento/mantenimiento.routes').then(m => m.MANTENIMIENTO_ROUTES)
+      },
     ]
   },
   // imports...
-  {
-    path: 'mantenimiento',
-    loadChildren: () =>
-      import('./core/mantenimiento/mantenimiento.routes').then(m => m.MANTENIMIENTO_ROUTES)
-  },
+
 
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }

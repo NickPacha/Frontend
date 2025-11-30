@@ -6,7 +6,7 @@ import { Vehiculo, Nivel } from './vehiculo.model';
 @Injectable({ providedIn: 'root' })
 export class VehiculoService {
   private base = '/api'; // Ajusta si tu proxy / prefijo es distinto
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Vehículos
   listVehiculos(params?: any): Observable<Vehiculo[]> {
@@ -40,7 +40,7 @@ export class VehiculoService {
   }
 
   // Niveles (para combo)
-  listNiveles(): Observable<Nivel[]> {
-    return this.http.get<Nivel[]>(`${this.base}/niveles`);
+  listNiveles() {
+    return this.http.get<Nivel[]>('/api/nivel'); // ejemplo
   }
 }

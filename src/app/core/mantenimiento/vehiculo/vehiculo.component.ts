@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup,FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehiculoService } from './vehiculo.service';
 import { Vehiculo, Nivel } from './vehiculo.model';
 import { RouterModule } from '@angular/router';
@@ -44,14 +44,17 @@ export class VehiculoComponent implements OnInit {
 
   loadNiveles(): void {
     this.svc.listNiveles().subscribe({
-      next: res => this.niveles = res,
+      next: res => {
+        console.log("NIVELES RECIBIDOS:", res); // 👈 Aquí vemos si llegan o no
+        this.niveles = res;
+      },
       error: err => console.error('Error cargando niveles', err)
     });
   }
 
   loadVehiculos(): void {
     this.loading = true;
-    this.svc.listVehiculos().pipe(finalize(()=> this.loading = false)).subscribe({
+    this.svc.listVehiculos().pipe(finalize(() => this.loading = false)).subscribe({
       next: res => {
         this.vehiculos = Array.isArray(res) ? res : [];
       },
@@ -74,10 +77,10 @@ export class VehiculoComponent implements OnInit {
       placa: v.placa,
       marca: v.marca,
       modelo: v.modelo,
-      nivel: [v.nivel ?? null]
+      nivelId: typeof v.nivel === 'number' ? v.nivel : v.nivel?.id ?? null
     });
     // scroll to form if needed
-    setTimeout(()=> window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   }
 
   cancel(): void {
@@ -100,7 +103,7 @@ export class VehiculoComponent implements OnInit {
 
     this.loading = true;
     if (this.selectedId) {
-      this.svc.updateVehiculo(this.selectedId, payload).pipe(finalize(()=> this.loading = false)).subscribe({
+      this.svc.updateVehiculo(this.selectedId, payload).pipe(finalize(() => this.loading = false)).subscribe({
         next: () => {
           this.loadVehiculos();
           this.cancel();
@@ -110,7 +113,7 @@ export class VehiculoComponent implements OnInit {
         }
       });
     } else {
-      this.svc.createVehiculo(payload).pipe(finalize(()=> this.loading = false)).subscribe({
+      this.svc.createVehiculo(payload).pipe(finalize(() => this.loading = false)).subscribe({
         next: () => {
           this.loadVehiculos();
           this.cancel();

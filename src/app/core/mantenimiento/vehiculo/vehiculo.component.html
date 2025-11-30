@@ -29,7 +29,9 @@
             <label>Nivel *</label>
             <select formControlName="nivelId" class="form-control">
               <option [ngValue]="null">-- Seleccionar --</option>
-              <option *ngFor="let n of niveles" [ngValue]="n.id">{{ n.codigo }} ({{n.m3Min}} - {{n.m3Max}})</option>
+              <option *ngFor="let n of niveles" [ngValue]="n.id">
+                {{ n.codigo }} ({{ n.m3Min }} - {{ n.m3Max }})
+              </option>
             </select>
             <div *ngIf="form.controls['nivelId'].touched && form.controls['nivelId'].invalid" class="text-danger small">
               Seleccione un nivel.
@@ -38,7 +40,8 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary" [disabled]="loading">{{ selectedId ? 'Actualizar' : 'Crear' }}</button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">{{ selectedId ? 'Actualizar' : 'Crear'
+            }}</button>
           <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
           <button type="button" class="btn btn-outline-secondary" (click)="loadVehiculos()">Recargar lista</button>
         </div>
@@ -75,7 +78,9 @@
             <td>{{ v.placa }}</td>
             <td>{{ v.marca }}</td>
             <td>{{ v.modelo }}</td>
-            <td>{{ v.nivel ?? '-' }}</td>
+            <td>
+              {{ typeof v.nivel === 'number' ? v.nivel : v.nivel?.codigo ?? '-' }}
+            </td>
             <td>{{ v.estado ?? 'A' }}</td>
             <td>
               <button class="btn btn-sm btn-outline-primary" (click)="startEdit(v)">Editar</button>

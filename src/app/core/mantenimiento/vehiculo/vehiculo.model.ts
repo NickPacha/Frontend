@@ -10,6 +10,6 @@ export interface Vehiculo {
   placa: string;
   marca?: string;
   modelo?: string;
-  nivel: number; // backend devuelve objeto Nivel; al crear puede enviarse id
+  nivel: Nivel | number | null;
   estado?: string; // 'A' | 'I'
 }

@@ -5,42 +5,33 @@ import { Vehiculo, Nivel } from './vehiculo.model';
 
 @Injectable({ providedIn: 'root' })
 export class VehiculoService {
-  private base = '/api'; // Ajusta si tu proxy / prefijo es distinto
+  // ya no usamos '/api' como base; llamamos rutas relativas para que el proxy redireccione
   constructor(private http: HttpClient) { }
 
-  // Vehículos
-  listVehiculos(params?: any): Observable<Vehiculo[]> {
-    // params opcionales para filtrar/paginación
-    let httpParams = new HttpParams();
-    if (params) {
-      Object.keys(params).forEach(k => {
-        if (params[k] !== null && params[k] !== undefined) {
-          httpParams = httpParams.set(k, params[k]);
-        }
-      });
-    }
-    return this.http.get<Vehiculo[]>(`${this.base}/vehiculos`, { params: httpParams });
+  private base = '/api';
+  
+  listVehiculos() {
+    return this.http.get<Vehiculo[]>(`${this.base}/vehiculos`);
   }
 
   getVehiculo(id: number): Observable<Vehiculo> {
-    return this.http.get<Vehiculo>(`${this.base}/vehiculos/${id}`);
+    return this.http.get<Vehiculo>(`*api/vehiculo/${id}`);
   }
 
-  createVehiculo(payload: any): Observable<Vehiculo> {
-    return this.http.post<Vehiculo>(`${this.base}/vehiculos`, payload);
+  createVehiculo(payload: any) {
+    return this.http.post('/api/vehiculo', payload);
   }
 
-  updateVehiculo(id: number, payload: any): Observable<Vehiculo> {
-    return this.http.put<Vehiculo>(`${this.base}/vehiculos/${id}`, payload);
+  updateVehiculo(id: number, payload: any) {
+    return this.http.put(`/api/vehiculo/${id}`, payload);
   }
 
-  // Soft delete -> backend implements estado='I'
-  deleteVehiculo(id: number): Observable<any> {
-    return this.http.delete(`${this.base}/vehiculos/${id}`);
+  deleteVehiculo(id: number) {
+    return this.http.delete(`/api/vehiculo/${id}`);
   }
 
-  // Niveles (para combo)
+  
   listNiveles() {
-    return this.http.get<Nivel[]>('/api/nivel'); // ejemplo
+    return this.http.get<Nivel[]>(`${this.base}/niveles`);
   }
 }

@@ -1,37 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vehiculo, Nivel } from './vehiculo.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class VehiculoService {
-  
+
+  private api = 'http://localhost:9090/api/v1';
+
   constructor(private http: HttpClient) { }
 
-  private base = '/api/v1';
-
-  listVehiculos() {
-    return this.http.get<Vehiculo[]>(`${this.base}/vehiculos`);
+  // -------------------
+  // NIVELES
+  // -------------------
+  listNiveles(): Observable<Nivel[]> {
+    return this.http.get<Nivel[]>(`${this.api}/niveles`);
   }
 
-  getVehiculo(id: number) {
-    return this.http.get<Vehiculo>(`${this.base}/vehiculo/${id}`);
+  // -------------------
+  // VEHÍCULOS
+  // -------------------
+  listVehiculos(): Observable<Vehiculo[]> {
+    return this.http.get<Vehiculo[]>(`${this.api}/vehiculos`);
   }
 
-  createVehiculo(data: any) {
-    return this.http.post(`${this.base}/vehiculo`, data);
+  getVehiculo(id: number): Observable<Vehiculo> {
+    return this.http.get<Vehiculo>(`${this.api}/vehiculos/${id}`);
   }
 
-  updateVehiculo(id: number, payload: any) {
-    return this.http.put(`${this.base}/vehiculo/${id}`, payload);
+  createVehiculo(data: any): Observable<any> {
+    return this.http.post(`${this.api}/vehiculos`, data);
   }
 
-  deleteVehiculo(id: number) {
-    return this.http.delete(`${this.base}/vehiculo/${id}`);
+  updateVehiculo(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.api}/vehiculos/${id}`, data);
   }
 
-
-  listNiveles() {
-    return this.http.get<Nivel[]>(`${this.base}/niveles`);
+  deleteVehiculo(id: number): Observable<any> {
+    return this.http.delete(`${this.api}/vehiculos/${id}`);
   }
 }
